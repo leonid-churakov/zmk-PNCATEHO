@@ -15,6 +15,10 @@
 #define COMBO_LAYERS 0
 #define STICKY_TIMEOUT 500
 
+// LAYERS
+#define BASE 0
+#define NAV 1
+
 // LEFT SIDE
 #define TLP 0 // TOP
 #define TLR 1 // TOP
@@ -44,20 +48,45 @@
     quick-release;
 };
 
+// Space on tap, NAV layer on hold (inner thumb)
+&lt {
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <175>;
+};
+
 / {
   combos {
     compatible = "zmk,combos";
     #include "chords.dtsi"
+
+    // NAV layer: ring + middle (top) = Tab
+    combo_nav_tab {
+      timeout-ms = <COMBO_TIMEOUT>;
+      bindings = <&kp TAB>;
+      key-positions = <TLR TLM>;
+      layers = <NAV>;
+    };
   };
 
   keymap {
     compatible = "zmk,keymap";
 
     default_layer {
+      display-name = "base";
       bindings = <
-        &none &none &none &none               &none &none &none &none     
-        &none &none &none &none               &none &none &none &none     
-                          &none &none   &none &none &none &none     
+        &none &none &none &none                      &none &none &none &none
+        &none &none &none &none                      &none &none &none &none
+                          &none &lt NAV SPACE        &none &none
+      >;
+    };
+
+    nav_layer {
+      display-name = "nav";
+      bindings = <
+        &kp LEFT &kp UP   &kp DOWN   &kp RIGHT       &none &none &none &none
+        &sk LGUI &sk LALT &sk LSHIFT &sk LCTRL       &none &none &none &none
+                                     &none &trans    &none &none
       >;
     };
   };
