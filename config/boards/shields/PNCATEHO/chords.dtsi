@@ -48,31 +48,53 @@ combo_rb_##NAME { \
 	layers = <COMBO_LAYERS>; \
 };
 
-combo_l_bspc { \
+// Thumb variants only: the single key itself is bound in the keymap
+#define SCOMBO(NAME, INNER_BINDINGS, OUTER_BINDINGS,  BOTH_BINDINGS, LEFT_KEYPOS, RIGHT_KEYPOS) \
+combo_li_##NAME { \
 	timeout-ms = <COMBO_TIMEOUT>; \
-	bindings = <&kp BSPC>; \
-	key-positions = <LOT>; \
+	bindings = <INNER_BINDINGS>; \
+	key-positions = <LEFT_KEYPOS LIT>; \
 	layers = <COMBO_LAYERS>; \
-};
-
-combo_r_bspc { \
+}; \
+combo_lo_##NAME { \
 	timeout-ms = <COMBO_TIMEOUT>; \
-	bindings = <&kp BSPC>; \
-	key-positions = <ROT>; \	
+	bindings = <OUTER_BINDINGS>; \
+	key-positions = <LEFT_KEYPOS LOT>; \
+	layers = <COMBO_LAYERS>; \
+}; \
+combo_lb_##NAME { \
+	timeout-ms = <COMBO_TIMEOUT>; \
+	bindings = <BOTH_BINDINGS>; \
+	key-positions = <LEFT_KEYPOS LIT LOT>; \
+	layers = <COMBO_LAYERS>; \
+}; \
+combo_ri_##NAME { \
+	timeout-ms = <COMBO_TIMEOUT>; \
+	bindings = <INNER_BINDINGS>; \
+	key-positions = <RIGHT_KEYPOS RIT>; \
+	layers = <COMBO_LAYERS>; \
+}; \
+combo_ro_##NAME { \
+	timeout-ms = <COMBO_TIMEOUT>; \
+	bindings = <OUTER_BINDINGS>; \
+	key-positions = <RIGHT_KEYPOS ROT>; \
+	layers = <COMBO_LAYERS>; \
+}; \
+combo_rb_##NAME { \
+	timeout-ms = <COMBO_TIMEOUT>; \
+	bindings = <BOTH_BINDINGS>; \
+	key-positions = <RIGHT_KEYPOS RIT ROT>; \
 	layers = <COMBO_LAYERS>; \
 };
 //    (name,   press,       inner,         out,         both,          chord,       chord)
-TCOMBO(B,      &kp B,       &kp LS(B),     &kp LEFT,    &kp LS(LEFT),  TLP,         TRP)
-TCOMBO(F,      &kp F,       &kp LS(F),     &kp UP,      &kp LS(UP),    TLR,         TRR)
-TCOMBO(T,      &kp T,       &kp LS(T),     &kp DOWN,    &kp LS(DOWN),  TLM,         TRM)
-TCOMBO(J,      &kp J,       &kp LS(J),     &kp RIGHT,   &kp LS(RIGHT), TLI,         TRI)
-// H: tap/hold handled by &num_lt on BLP in keymap, so no single-key combo here
-combo_li_H { timeout-ms = <COMBO_TIMEOUT>; bindings = <&kp LS(H)>; key-positions = <BLP LIT>;     layers = <COMBO_LAYERS>; };
-combo_lo_H { timeout-ms = <COMBO_TIMEOUT>; bindings = <&sk LGUI>;  key-positions = <BLP LOT>;     layers = <COMBO_LAYERS>; };
-combo_lb_H { timeout-ms = <COMBO_TIMEOUT>; bindings = <&kp HOME>;  key-positions = <BLP LIT LOT>; layers = <COMBO_LAYERS>; };
-TCOMBO(C,      &kp C,       &kp LS(C),     &sk LALT,    &kp PG_UP,     BLR,         BRR)
-TCOMBO(N,      &kp N,       &kp LS(N),     &sk LCTRL,   &kp PG_DN,     BLM,         BRM)
-TCOMBO(Y,      &kp Y,       &kp LS(Y),     &sk LSHIFT,  &kp END,       BLI,         BRI)
+SCOMBO(B,                   &kp LS(B),     &kp LEFT,    &kp LS(LEFT),  TLP,         TRP)
+SCOMBO(F,                   &kp LS(F),     &kp UP,      &kp LS(UP),    TLR,         TRR)
+SCOMBO(T,                   &kp LS(T),     &kp DOWN,    &kp LS(DOWN),  TLM,         TRM)
+SCOMBO(J,                   &kp LS(J),     &kp RIGHT,   &kp LS(RIGHT), TLI,         TRI)
+SCOMBO(H,                   &kp LS(H),     &sk LGUI,    &kp HOME,      BLP,         BRP)
+SCOMBO(C,                   &kp LS(C),     &sk LALT,    &kp PG_UP,     BLR,         BRR)
+SCOMBO(N,                   &kp LS(N),     &sk LCTRL,   &kp PG_DN,     BLM,         BRM)
+SCOMBO(Y,                   &kp LS(Y),     &sk LSHIFT,  &kp END,       BLI,         BRI)
 TCOMBO(D,      &kp D,       &kp LS(D),     &kp N1,      &kp F1,        TLP TLI,     TRP TRI)
 TCOMBO(K,      &kp K,       &kp LS(K),     &kp N2,      &kp F2,        BLP BLI,     BRP BRI)
 TCOMBO(R,      &kp R,       &kp LS(R),     &kp N3,      &kp F3,        BLP BLR,     BRP BRR)
