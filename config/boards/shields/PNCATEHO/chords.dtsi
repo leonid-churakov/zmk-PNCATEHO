@@ -66,7 +66,10 @@ TCOMBO(B,      &kp B,       &kp LS(B),     &kp LEFT,    &kp LS(LEFT),  TLP,     
 TCOMBO(F,      &kp F,       &kp LS(F),     &kp UP,      &kp LS(UP),    TLR,         TRR)
 TCOMBO(T,      &kp T,       &kp LS(T),     &kp DOWN,    &kp LS(DOWN),  TLM,         TRM)
 TCOMBO(J,      &kp J,       &kp LS(J),     &kp RIGHT,   &kp LS(RIGHT), TLI,         TRI)
-TCOMBO(H,      &kp H,       &kp LS(H),     &sk LGUI,    &kp HOME,      BLP,         BRP)
+// H: tap/hold handled by &num_lt on BLP in keymap, so no single-key combo here
+combo_li_H { timeout-ms = <COMBO_TIMEOUT>; bindings = <&kp LS(H)>; key-positions = <BLP LIT>;     layers = <COMBO_LAYERS>; };
+combo_lo_H { timeout-ms = <COMBO_TIMEOUT>; bindings = <&sk LGUI>;  key-positions = <BLP LOT>;     layers = <COMBO_LAYERS>; };
+combo_lb_H { timeout-ms = <COMBO_TIMEOUT>; bindings = <&kp HOME>;  key-positions = <BLP LIT LOT>; layers = <COMBO_LAYERS>; };
 TCOMBO(C,      &kp C,       &kp LS(C),     &sk LALT,    &kp PG_UP,     BLR,         BRR)
 TCOMBO(N,      &kp N,       &kp LS(N),     &sk LCTRL,   &kp PG_DN,     BLM,         BRM)
 TCOMBO(Y,      &kp Y,       &kp LS(Y),     &sk LSHIFT,  &kp END,       BLI,         BRI)
